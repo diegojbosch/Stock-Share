@@ -1,0 +1,14 @@
+body {
+	background-color: cornflowerblue;
+}
+
+form {   
+    border: 2px solid #999;
+    border: inset 1px solid #333;
+    width: 600px;
+    height: 150px;
+    margin: auto;
+    position: relative;
+	background-color: lightgray;
+	text-align: center;
+}
