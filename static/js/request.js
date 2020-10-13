@@ -35,6 +35,11 @@ function setFrame() {
 	
 	xhrNewsArticles.open("GET", "http://localhost:5000/api/v1.0/news-articles" + queryParams, false);
 	xhrNewsArticles.send();
+	
+	document.getElementById("results").classList.remove("hide");
+	document.getElementById("results").classList.add("showResults");
+	//show first tab
+	document.getElementById("companyOutlook").style.display = "block";
 }
 
 function clearResults(){
@@ -46,13 +51,13 @@ function changeTab(event, info) {
 	var tabContent, tablinks;
 	tabContent = document.getElementsByClassName("tabContent");
 	
-	for (var i = 0; i<tabContent.length; i++) {
+	for (var i=0; i<tabContent.length; i++) {
 		tabContent[i].style.display = "none";
 	}
 	
 	tabLinks = document.getElementsByClassName("tabLinks");
 	
-	for (var i = 0; i<tabLinks.length; i++) {
+	for (var i=0; i<tabLinks.length; i++) {
 		tabLinks[i].className = tabLinks[i].className.replace(" active", "");
 	}
 	

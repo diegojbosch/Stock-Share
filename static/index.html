@@ -6,25 +6,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8">
 		
+		<!-- JS -->
+        <script language="JavaScript" src="/static/js/request.js"></script>
 		<!-- CSS -->
-        <link rel="stylesheet" href="css/style.css" media="screen" />
-        
-        <!-- BootstrapCDN >
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script-->
+        <link rel="stylesheet" href="/static/css/style.css" media="screen" />
         
     </head>
     
     <body>
         
         <div>
-            <form name="search_form" method="GET">
+            <form name="search_form" method="GET" onsubmit="setFrame(); return false" onreset="clearResults();">
                 
                 <div><h4>Stock Search</h4></div>
                 
-                <div>Enter Stock Ticker Symbol: <input type="text" required></div>
+                <div>Enter Stock Ticker Symbol: <input type="text" id="keywords" required></div>
                 
                 <div>
                     <button type="submit">Search</button>
@@ -32,6 +28,24 @@
                 </div>
             </form>
         </div>
+		
+		<div id="results" class="hide">
+			<div class="tab">
+				<button class="tabLinks" onclick="changeTab(event, 'companyOutlook')">Company Outlook</button>
+				<button class="tabLinks" onclick="changeTab(event, 'stockSummary')">Stock Summary</button>
+				<button class="tabLinks" onclick="changeTab(event, 'latestNews')">Latest News</button>
+			</div>
+			
+			<div id="companyOutlook" class="tabContent">
+			</div>
+
+			<div id="stockSummary" class="tabContent">
+			</div>
+
+			<div id="latestNews" class="tabContent">
+			</div>
+		
+		</div>
 
     </body>
     
