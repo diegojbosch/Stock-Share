@@ -3,12 +3,19 @@ import requests
 
 application = Flask(__name__)
 
+application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 if __name__ == '__main__':
 	application.run(debug=True)
 
 with open("token.txt", "r") as file:
 	tiingo_api_token = file.readline().strip()
 	news_api_token = file.readline().strip()
+
+
+@application.route('/search')
+def homepage():
+	return application.send_static_file("index.html")
 
 # retrieve company outlook information
 @application.route('/api/v1.0/company-outlook', methods=['GET'])

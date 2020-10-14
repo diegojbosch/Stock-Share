@@ -6,8 +6,8 @@ function setFrame() {
 	xhrCompanyOutlook.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200) {
 			var jsonResponse = JSON.parse(xhrCompanyOutlook.responseText);
-			document.getElementById("companyOutlook").innerHTML = jsonResponse.description;
-
+			var htmlCode = '<table><tr><td style="width: 170px;"><b>Company name</b></td><td>' + jsonResponse.companyName + '</td></tr><tr><td><b>Stock Ticker Symbol</b></td><td>' + jsonResponse.stockTickerSymbol + '</td></tr><tr><td><b>Stock Exchange Code</b></td><td>' + jsonResponse.stockExchangeCode + '</td></tr><tr><td><b>Company Start Date</b></td><td>' + jsonResponse.companyStartDate + '</td></tr><tr><td><b>Description</b></td><td>' + jsonResponse.description + '</td></tr></table>';
+			document.getElementById("companyOutlook").innerHTML = htmlCode;
 		}
 	}
 	
@@ -18,7 +18,8 @@ function setFrame() {
 	xhrStockSummary.onreadystatechange = function(){
 		if(this.readyState == 4 && this.status == 200) {
 			var jsonResponse = JSON.parse(xhrStockSummary.responseText);
-			document.getElementById("stockSummary").innerHTML = jsonResponse.highPrice;
+			var htmlCode = '<table><tr><td><b>Stock Ticker Symbol</b></td><td>' + jsonResponse.stockTickerSymbol + '</td></tr><tr><td><b>Trading Day</b></td><td>' + jsonResponse.tradingDay + '</td></tr><tr><td><b>Previous Closing Price</b></td><td>' + jsonResponse.previousClosingPrice + '</td></tr><tr><td><b>Opening Price</b></td><td>' + jsonResponse.openingPrice + '</td></tr><tr><td><b>High Price</b></td><td>' + jsonResponse.highPrice + '</td></tr><tr><td><b>Low Price</b></td><td>' + jsonResponse.lowPrice + '</td></tr><tr><td><b>Last Price</b></td><td>' + jsonResponse.lastPrice + '</td></tr><tr><td><b>Change</b></td><td>' + jsonResponse.change + '</td></tr><tr><td><b>Change Percent</b></td><td>' + jsonResponse.changePercent + '</td></tr><tr><td><b>Number of Shares Traded</b></td><td>' + jsonResponse.numberSharesTraded + '</td></tr></table>';
+			document.getElementById("stockSummary").innerHTML = htmlCode;
 		}
 	}
 	
@@ -29,7 +30,11 @@ function setFrame() {
 	xhrNewsArticles.onreadystatechange = function(){
 		if(this.readyState == 4 && this.status == 200) {
 			var jsonResponse = JSON.parse(xhrNewsArticles.responseText);
-			document.getElementById("latestNews").innerHTML = jsonResponse[0].data;
+			var htmlCode = '';
+			for(var i=0; i<jsonResponse.length; i++){
+				htmlCode += '<div class="show-card"><div class="image"><img src="' + jsonResponse[i].image + '"></div><div><p><b>' + jsonResponse[i].title + '</b></p><p>Published Date: ' + jsonResponse[i].data + '</p><p><a href="' + jsonResponse[i].linkOriginalPost + '">See original post</a></p></div></div>';
+			}
+			document.getElementById("latestNews").innerHTML = htmlCode;
 		}
 	}
 	
@@ -38,8 +43,9 @@ function setFrame() {
 	
 	document.getElementById("results").classList.remove("hide");
 	document.getElementById("results").classList.add("showResults");
-	//show first tab
+	//show first tab and make tab button active
 	document.getElementById("companyOutlook").style.display = "block";
+	document.getElementById("companyButton").className = "tabLinks active";
 }
 
 function clearResults(){
