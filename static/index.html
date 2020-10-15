@@ -18,9 +18,9 @@
         <div>
             <form name="search_form" method="GET" onsubmit="setFrame(); return false" onreset="clearResults();">
                 
-                <div><h4>Stock Search</h4></div>
+                <div><h1>Stock Search</h1></div>
                 
-                <div>Enter Stock Ticker Symbol: <input type="text" id="keywords" required></div>
+                <div>Enter Stock Ticker Symbol: <input type="text" id="keywords" required></div><br><br>
                 
                 <div>
                     <button type="submit">Search</button>
@@ -31,9 +31,9 @@
 		
 		<div id="results" class="hide">
 			<div class="tab">
-				<button class="tabLinks" onclick="changeTab(event, 'companyOutlook')">Company Outlook</button>
-				<button class="tabLinks" onclick="changeTab(event, 'stockSummary')">Stock Summary</button>
-				<button class="tabLinks" onclick="changeTab(event, 'latestNews')">Latest News</button>
+				<button id="companyButton" class="tabLinks" onclick="changeTab(event, 'companyOutlook')">Company Outlook</button>
+				<button id="stockButton" class="tabLinks" onclick="changeTab(event, 'stockSummary')">Stock Summary</button>
+				<button id="newsButton" class="tabLinks" onclick="changeTab(event, 'latestNews')">Latest News</button>
 			</div>
 			
 			<div id="companyOutlook" class="tabContent">
