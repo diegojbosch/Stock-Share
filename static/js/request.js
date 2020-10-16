@@ -28,7 +28,21 @@ function setFrame() {
 
 		if(xhrStockSummary.readyState == 4 && xhrStockSummary.status == 200) {
 			jsonResponse = JSON.parse(xhrStockSummary.responseText);
-			htmlCode = '<table><tr><td><b>Stock Ticker Symbol</b></td><td>' + jsonResponse.stockTickerSymbol + '</td></tr><tr><td><b>Trading Day</b></td><td>' + jsonResponse.tradingDay + '</td></tr><tr><td><b>Previous Closing Price</b></td><td>' + jsonResponse.previousClosingPrice + '</td></tr><tr><td><b>Opening Price</b></td><td>' + jsonResponse.openingPrice + '</td></tr><tr><td><b>High Price</b></td><td>' + jsonResponse.highPrice + '</td></tr><tr><td><b>Low Price</b></td><td>' + jsonResponse.lowPrice + '</td></tr><tr><td><b>Last Price</b></td><td>' + jsonResponse.lastPrice + '</td></tr><tr><td><b>Change</b></td><td>' + jsonResponse.change + '</td></tr><tr><td><b>Change Percent</b></td><td>' + jsonResponse.changePercent + '</td></tr><tr><td><b>Number of Shares Traded</b></td><td>' + jsonResponse.numberSharesTraded + '</td></tr></table>';
+			var changeArrowImg, changePercentArrowImg;
+			
+			if(jsonResponse.change >= 0){
+				changeArrowImg = 'GreenArrowUp';
+			} else {
+				changeArrowImg = 'RedArrowDown';
+			}
+			
+			if(jsonResponse.changePercent >= 0) {
+				changePercentArrowImg = 'GreenArrowUp';
+			} else {
+				changePercentArrowImg = 'RedArrowDown';
+			}
+			
+			htmlCode = '<table><tr><td><b>Stock Ticker Symbol</b></td><td>' + jsonResponse.stockTickerSymbol + '</td></tr><tr><td><b>Trading Day</b></td><td>' + jsonResponse.tradingDay + '</td></tr><tr><td><b>Previous Closing Price</b></td><td>' + jsonResponse.previousClosingPrice + '</td></tr><tr><td><b>Opening Price</b></td><td>' + jsonResponse.openingPrice + '</td></tr><tr><td><b>High Price</b></td><td>' + jsonResponse.highPrice + '</td></tr><tr><td><b>Low Price</b></td><td>' + jsonResponse.lowPrice + '</td></tr><tr><td><b>Last Price</b></td><td>' + jsonResponse.lastPrice + '</td></tr><tr><td><b>Change</b></td><td>' + jsonResponse.change + ' <img src="/static/img/'+ changeArrowImg + '.jpg" style="width:15px;"></td></tr><tr><td><b>Change Percent</b></td><td>' + jsonResponse.changePercent + ' <img src="/static/img/'+ changePercentArrowImg + '.jpg" style="width:15px;"></td></tr><tr><td><b>Number of Shares Traded</b></td><td>' + jsonResponse.numberSharesTraded + '</td></tr></table>';
 			document.getElementById("stockSummary").innerHTML = htmlCode;
 		} else {
 			showResults = false;
