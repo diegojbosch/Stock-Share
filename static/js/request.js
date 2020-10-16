@@ -67,7 +67,8 @@ function setFrame() {
 }
 
 function clearResults(){
-    document.getElementById("results").innerHTML = "";
+    document.getElementById("results").classList = "hide";
+	document.getElementById("noRecordFound").classList = "hide";
     return false;
 }
 
