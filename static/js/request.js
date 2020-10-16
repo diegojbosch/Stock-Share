@@ -55,9 +55,9 @@ function setFrame() {
 	if(showResults){
 		document.getElementById("results").classList.remove("hide");
 		document.getElementById("results").classList.add("showResults");
-		//show first tab and make tab button active
-		document.getElementById("companyOutlook").style.display = "block";
-		document.getElementById("companyButton").className = "tabLinks active";
+		document.getElementById("noRecordFound").classList.remove("showError");
+		document.getElementById("noRecordFound").classList.add("hide");
+		changeTab('companyButton', 'companyOutlook');
 	} else {
 		document.getElementById("noRecordFound").classList.remove("hide");
 		document.getElementById("noRecordFound").classList.add("showError");
@@ -86,5 +86,5 @@ function changeTab(button, info) {
 	}
 	
 	document.getElementById(info).style.display = "block";
-	event.currentTarget.className += " active";
+	document.getElementById(button).classList.add("active");
 }

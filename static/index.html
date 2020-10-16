@@ -29,11 +29,13 @@
             </form>
         </div>
 		
+		<div id="noRecordFound" class="hide"><p>Error: No record has been found, please enter a valid symbol.</p></div>
+		
 		<div id="results" class="hide">
 			<div class="tab">
-				<button id="companyButton" class="tabLinks" onclick="changeTab(event, 'companyOutlook')">Company Outlook</button>
-				<button id="stockButton" class="tabLinks" onclick="changeTab(event, 'stockSummary')">Stock Summary</button>
-				<button id="newsButton" class="tabLinks" onclick="changeTab(event, 'latestNews')">Latest News</button>
+				<button id="companyButton" class="tabLinks" onclick="changeTab('companyButton', 'companyOutlook')">Company Outlook</button>
+				<button id="stockButton" class="tabLinks" onclick="changeTab('stockButton', 'stockSummary')">Stock Summary</button>
+				<button id="newsButton" class="tabLinks" onclick="changeTab('newsButton', 'latestNews')">Latest News</button>
 			</div>
 			
 			<div id="companyOutlook" class="tabContent">
@@ -44,9 +46,6 @@
 
 			<div id="latestNews" class="tabContent">
 			</div>
-		
 		</div>
-
     </body>
-    
 </html>
