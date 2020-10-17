@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, request
 import requests
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
 application = Flask(__name__)
 
@@ -91,3 +93,19 @@ def get_news_articles():
 		})
 
 	return jsonify(news_articles)
+
+
+@application.route('/api/v1.0/stock-prices', methods=['GET'])
+def get_stock_prices():
+
+	if request.args.get('stock_ticker') is not None:
+		stock_ticker = request.args.get('stock_ticker')
+
+	six_months_ago = date.today() + relativedelta(months=-6)
+	tiingo_api_url = 'https://api.tiingo.com/iex/' + stock_ticker + '/prices?startDate=' + six_months_ago.strftime("%Y-%m-%d") + '&resampleFreq=12hour&columns=open,high,low,close,volume&token=' + tiingo_api_token
+	
+	response = requests.get(tiingo_api_url)
+	resp_json = response.json()
+
+	return jsonify(resp_json)
+
