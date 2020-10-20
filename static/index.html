@@ -10,13 +10,87 @@
         <script language="JavaScript" src="/static/js/request.js"></script>
 		<!-- CSS -->
         <link rel="stylesheet" href="/static/css/style.css" media="screen" />
+		
+		<script src="https://code.highcharts.com/stock/highstock.js"></script>
+		<script src="https://code.highcharts.com/stock/modules/data.js"></script>
+		<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+		<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+		
+		<script>
+			function getChart(){
+				
+				var stockTicker = document.getElementById('keywords').value;
+				var date = new Date();
+				
+				Highcharts.getJSON('http://localhost:5000/api/v1.0/stock-prices?stock_ticker=ibm', function (data) {
+
+					// create chart
+					Highcharts.stockChart('container', {
+						title: {
+							text: 'Stock Price ' + stockTicker.toUpperCase() + ' ' + date.toDateString()
+						},
+						subtitle: {
+							text: 'Source: Tiingo'
+						},
+						xAxis: {
+							gapGridLineWidth: 0
+						},
+						yAxis: {
+							title: {
+								text: 'Stock Price'
+							}	
+						},
+						rangeSelector: {
+							buttons: [{
+								type: 'hour',
+								count: 1,
+								text: '1h'
+							}, {
+								type: 'day',
+								count: 1,
+								text: '1D'
+							}, {
+								type: 'all',
+								count: 1,
+								text: 'All'
+							}],
+							selected: 1,
+							inputEnabled: false
+						},
+						series: [{
+							name: stockTicker.toUpperCase(),
+							type: 'area',
+							data: data,
+							gapSize: 5,
+							tooltip: {
+								valueDecimals: 2
+							},
+							fillColor: {
+								linearGradient: {
+									x1: 0,
+									y1: 0,
+									x2: 0,
+									y2: 1
+								},
+								stops: [
+									[0, Highcharts.getOptions().colors[0]],
+									[1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+								]
+							},
+							threshold: null
+						}]
+					});
+				});
+			};
+			
+		</script>
         
     </head>
     
     <body>
         
         <div>
-            <form name="search_form" method="GET" onsubmit="setFrame(); return false" onreset="clearResults();">
+            <form name="search_form" method="GET" onsubmit="setFrame(); getChart(); return false" onreset="clearResults();">
                 
                 <div><h1>Stock Search</h1></div>
                 
@@ -35,6 +109,7 @@
 			<div class="tab">
 				<button id="companyButton" class="tabLinks" onclick="changeTab('companyButton', 'companyOutlook')">Company Outlook</button>
 				<button id="stockButton" class="tabLinks" onclick="changeTab('stockButton', 'stockSummary')">Stock Summary</button>
+				<button id="chartsButton" class="tabLinks" onclick="changeTab('chartsButton', 'charts')">Charts</button>
 				<button id="newsButton" class="tabLinks" onclick="changeTab('newsButton', 'latestNews')">Latest News</button>
 			</div>
 			
@@ -42,6 +117,10 @@
 			</div>
 
 			<div id="stockSummary" class="tabContent">
+			</div>
+			
+			<div id="charts" class="tabContent">
+				<div id="container" style="height: 400px; min-width: 310px; max-width: 875px;"></div>
 			</div>
 
 			<div id="latestNews" class="tabContent">
